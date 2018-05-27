@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> Update </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<link href="{% static 'advertiser/dashboard/css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="{% static 'advertiser/dashboard/css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- Graph CSS -->
+<link href="{% static 'advertiser/dashboard/css/font-awesome.css' %}" rel="stylesheet">
+<!-- jQuery -->
+<!-- lined-icons -->
+<link rel="stylesheet" href="{% static 'advertiser/dashboard/css/icon-font.min.css' %}" type='text/css' />
+<!-- //lined-icons -->
+<!-- chart -->
+<script src="{% static 'advertiser/dashboard/js/Chart.js' %}"></script>
+<!-- //chart -->
+<!--animate-->
+<link href="{% static 'advertiser/dashboard/css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'advertiser/dashboard/js/wow.min.js' %}"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<!---//webfonts--->
+ <!-- Meters graphs -->
+<script src="{% static 'advertiser/dashboard/js/jquery-1.10.2.min.js' %}"></script>
+
+</head> 
+   
+ <body class="sticky-header left-side-collapsed"  onload="initMap()">
+    <section>
+    <!-- left side start-->
+				<div class="left-side sticky-left-side">
+
+                <div class="left-side-inner">
+
+				<!--sidebar nav start-->
+					<ul class="nav nav-pills nav-stacked custom-nav">
+                        <li ><a href="{% url 'advertiser:dashboard' %}"><i class="lnr lnr-home"></i> <span>Home</span></a></li>
+						<li ><a href="{% url 'advertiser:add-advertisement' %}"><i class="lnr lnr-file-add"></i> <span>Add</span></a></li>
+
+						<li ><a href="{% url 'advertiser:statistics' %}"><i class="lnr lnr-pie-chart"></i> <span>Charts</span></a>
+						</li>
+
+                        <li ><a href="{% url 'advertiser:Advertisements' %}">
+                            <i class="lnr lnr-book"></i> <span>Advertisements</span></a>
+
+                       <li ><a href="{% url 'advertiser:logout' %}">
+                            <i class="lnr lnr-exit"></i> <span> Logout</span></a>
+
+
+					</ul>
+				<!--sidebar nav end-->
+			  </div>
+            </div>
+    
+
+		
+			<!-- header-starts -->
+			<div class="header-section">
+			 
+
+										<!-- search-scripts -->
+										<script src="{% static 'advertiser/js/classie.js' %}"></script>
+										<script src="{% static 'advertiser/js/uisearch.js' %}"></script>
+											<script>
+												new UISearch( document.getElementById( 'sb-search' ) );
+											</script>
+            </div>
+
+        <br>
+        <div class="container">
+      <h2>Advertisements Management</h2>
+
+      <p>Manage Advertisements</p>
+        <br>
+      <table class="table">
+        <thead>
+          <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Publish Date</td>
+       <td> Categories </td>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+    {% for student in stuents %}
+      <tr>
+        <td>{{student.name}}</td>
+        <td>{{student.description}}</td>
+        <td>{{student.pub_date}}</td>
+        <td><a href="{% url 'advertiser:Advertisements' %}{{ student.id }}"><i class="fa fa-trash"></i>Delete</a></td>
+        <td><a href="{% url 'advertiser:Advertisements' %}{{ student.id }}/update"><i class="fa fa-trash"></i>Update</a></td>
+
+
+      </tr>
+    {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+										<!-- //search-scripts -->
+	<!-- //header-ends -->
+
+
+	</section>
+	
+
+<script src="{% static 'advertiser/js/scripts.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="{% static 'advertiser/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

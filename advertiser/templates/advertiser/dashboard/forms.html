@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Add Advertisment </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+  <!-- Bootstrap Core CSS -->
+<link href="{% static 'advertiser/dashboard/css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="{% static 'advertiser/dashboard/css/style.css' %}" rel='stylesheet' type='text/css' />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
+
+<!-- Graph CSS -->
+<link href="{% static 'advertiser/dashboard/css/font-awesome.css' %}" rel="stylesheet">
+<!-- jQuery -->
+<!-- lined-icons -->
+<link rel="stylesheet" href="{% static 'advertiser/dashboard/css/icon-font.min.css' %}" type='text/css' />
+<!-- //lined-icons -->
+<!-- chart -->
+<script src="{% static 'advertiser/dashboard/js/Chart.js' %}"></script>
+<!-- //chart -->
+<!--animate-->
+<link href="{% static 'advertiser/dashboard/css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'advertiser/dashboard/js/wow.min.js' %}"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<!---//webfonts--->
+ <!-- Meters graphs -->
+<script src="{% static 'advertiser/dashboard/js/jquery-1.10.2.min.js' %}"></script>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+</head> 
+   
+ <body class="sticky-header left-side-collapsed"  onload="initMap()">
+    <section>
+    <!-- left side start-->
+    <!-- left side start-->
+		<div class="left-side sticky-left-side">
+
+                <div class="left-side-inner">
+
+				<!--sidebar nav start-->
+					<ul class="nav nav-pills nav-stacked custom-nav">
+                        <li ><a href="{% url 'advertiser:dashboard' %}"><i class="lnr lnr-home"></i> <span>Home</span></a></li>
+						<li ><a href="{% url 'advertiser:add-advertisement' %}"><i class="lnr lnr-file-add"></i> <span>Add</span></a></li>
+
+						<li ><a href="{% url 'advertiser:statistics' %}"><i class="lnr lnr-pie-chart"></i> <span>Charts</span></a>
+						</li>
+
+                        <li ><a href="{% url 'advertiser:Advertisements' %}">
+                            <i class="lnr lnr-book"></i> <span>Advertisements</span></a>
+
+                       <li ><a href="{% url 'advertiser:logout' %}">
+                            <i class="lnr lnr-exit"></i> <span> Logout</span></a>
+
+
+					</ul>
+				<!--sidebar nav end-->
+			</div>
+            </div>
+    <!-- left side en
+
+    
+    <!-- main content start-->
+		
+			<!-- header-starts -->
+			<div class="header-section">
+                						<!-- search-scripts -->
+										<script src="{% static 'advertiser/dashboard/js/classie.js' %}"></script>
+										<script src="{% static 'advertiser/dashboard/js/uisearch.js' %}"></script>
+											<script>
+												new UISearch( document.getElementById( 'sb-search' ) );
+											</script>
+										<!-- //search-scripts -->
+
+
+
+							<div class="clearfix"></div>
+						</ul>
+					</div>
+					<div class="profile_details">
+						<ul>
+							<li class="dropdown profile_details_drop">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+								</a>
+
+							</li>
+							<div class="clearfix"> </div>
+						</ul>
+					</div>
+
+					<div class="clearfix"></div>
+
+
+	<!-- //header-ends -->
+			<div id="page-wrapper">
+                <div class="graphs">
+
+					    <h3 class="blank1"> Add Advertisment </h3>
+						<div class="tab-content">
+						    <div class="tab-pane active" id="horizontal-form">
+							    <form  class="form-horizontal" action="{% url 'advertiser:add-advertisement' %}" method="POST">
+								    <div class="form-group">
+									    <label for="focusedinput" class="col-sm-2 control-label">Name</label>
+									    <div class="col-sm-8">
+										    {% csrf_token %}
+										    {{ form.name }}
+									    </div>
+									
+								 </div>
+								<div class="form-group">
+									<label for="disabledinput" class="col-sm-2 control-label">Description</label>
+									<div class="col-sm-8">
+										{% csrf_token %}
+										{{ form.description }}
+									</div>
+								</div>
+                                <div class="form-group">
+									<label for="disabledinput" class="col-sm-2 control-label">Publish Date</label>
+									<div class="col-sm-8">
+										{% csrf_token %}
+										{{ form.pub_date }}
+									</div>
+
+								</div>
+                                <div class="form-group">
+									<label for="disabledinput" class="col-sm-2 control-label">Maximum Age</label>
+									<div class="col-sm-3">
+										{% csrf_token %}
+										{{ form.max_age }}
+									</div>
+                                    <label for="disabledinput" class="col-sm-2 control-label">Minimum Age</label>
+									<div class="col-sm-3">
+										{% csrf_token %}
+										{{ form.min_age }}
+									</div>
+								</div>
+
+								
+								<div class="form-group">
+									<label for="selector1" class="col-sm-2 control-label">Choose Category</label>
+									<div class="col-sm-8">
+                                        {% csrf_token %}
+
+										{{ form.category }}
+									</div>
+								</div>
+
+                                <div class="form-group">
+									<label for="selector1" class="col-sm-2 control-label">Tags</label>
+									<div class="col-sm-8">
+                                        {% csrf_token %}
+
+										{{ form.tags }}
+									</div>
+								</div>
+
+                                     <div class="form-group">
+									<label for="selector1" class="col-sm-2 control-label">Advertisement Media </label>
+									<div class="col-sm-8">
+                                        {% csrf_token %}
+
+                                            {{ form.media }}
+									</div>
+								</div>
+                                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                            </form>
+                        </div>
+                    </div>
+						  <div class="panel-footer">
+							<div class="row">
+								<div class="col-sm-8 col-sm-offset-2">
+
+                                    <a class="btn" href="{% url 'advertiser:Advertisements' %}">Advertisements</a>
+                                    
+								</div>
+							</div>
+						 </div>
+					  </div>
+				</div>
+	</section>
+	
+
+<script src="{% static 'advertiser/dashboard/js/scripts.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="{% static 'advertiser/dashboard/js/bootstrap.min.js' %}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+ <script>
+     $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+     });
+ </script>
+
+</body>
+</html>
