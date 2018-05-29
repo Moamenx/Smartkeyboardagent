@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from api.models import Advertiser
-from api.models import TargetedAge, AdvertisementCategory, Category, AdvertisementTag
+from api.models import TargetedAge, AdvertisementCategory, Category, AdvertisementTag, Target
 from .forms import *
 
 
@@ -210,9 +210,12 @@ class AdvertisementFormView(View):
             tags = form.cleaned_data['tags']
             #media = request.FILES['media']
 
+            Advertisement.objects.create(name=name, description=description, pub_date=pub_date, advertiser=adverttiser_name).save()
             pop = Advertisement.objects.get(name=name)
-            target = TargetedAge.objects.create(min_age=min_age, max_age=max_age, advertisement=pop)
-            Advertisement.objects.create(name=name, description=description, pub_date=pub_date, advertiser=adverttiser_name, target=target)
+            target_age = TargetedAge.objects.create(min_age=min_age, max_age=max_age, advertisement=pop)
+            target = Target.objects.create(city_id=1, country_id=1, targeted_age=target_age)
+            pop.target=target
+            pop.save()
             for i in category:
                 cat = Category.objects.get(name=i)
                 AdvertisementCategory.objects.create(advertisement=pop, category=cat)

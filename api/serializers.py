@@ -7,18 +7,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-
-
     def create(self, validated_data):
         sett = Setting.objects.create(themes_id=1)
         sett.save()
-        username= validated_data['username']
+        username = validated_data['username']
         gender = validated_data['gender']
         password = validated_data['password']
         regIp = validated_data['register_ip']
         currentIp = validated_data['current_ip']
         reg_date = validated_data['register_date']
-        return User.objects.create(setting_id=sett.id,**validated_data)
+        return User.objects.create(setting_id=sett.id, **validated_data)
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -44,25 +42,30 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = "__all__"
 
+
 class ThemePhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ThemePhoto
         fields = "__all__"
+
 
 class CitySerlaizer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = "__all__"
 
+
 class AdvertiserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertiser
         fields = "__all__"
 
+
 class TypedWordSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypedWords
         fields = "__all__"
+
 
 class AcceptedAdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
@@ -75,9 +78,25 @@ class RejectedAdvertisementSerializer(serializers.ModelSerializer):
         model = RejectedAdvertisement
         fields = "__all__"
 
+class AdvertisementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertisement
+        fields = "__all__"
+
+
 class ThemesCommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ThemesComments
+        fields = "__all__"
+
+class TargetAgeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TargetedAge
+        fields = "__all__"
+
+class TargetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Target
         fields = "__all__"
 
 class ThemesRatingSerializer(serializers.ModelSerializer):
@@ -85,12 +104,28 @@ class ThemesRatingSerializer(serializers.ModelSerializer):
         model = ThemeRating
         fields = "__all__"
 
+
 class ThemesPhotosLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = ThemePhotosLink
         fields = "__all__"
 
+
 class DevicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = "__all__"
+
+
+class UserAdvertisementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAdvertisement
+        fields = "__all__"
+
+

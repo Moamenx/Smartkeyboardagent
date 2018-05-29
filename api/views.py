@@ -59,6 +59,7 @@ class RejectedAdvertisementViewSet(ModelViewSet):
     serializer_class = RejectedAdvertisementSerializer
     queryset = RejectedAdvertisement.objects.all()
 
+
 class ThemesRatingViewSet(ModelViewSet):
     serializer_class = ThemesRatingSerializer
     queryset = ThemeRating.objects.all()
@@ -73,7 +74,36 @@ class ThemePhotosLinksViewSet(ModelViewSet):
     serializer_class = ThemesPhotosLinkSerializer
     queryset = ThemePhotosLink.objects.all()
 
+
 class DevicesViewSet(ModelViewSet):
-    serializers_class = DevicesSerializer
+    serializer_class = DevicesSerializer
     queryset = Device.objects.all()
 
+class AdvertisementViewSet(ModelViewSet):
+    serializer_class = AdvertisementSerializer
+    queryset = Advertisement.objects.all()
+
+class TargetedAgeViewSet(ModelViewSet):
+    serializer_class = TargetAgeSerializer
+    queryset = TargetedAge.objects.all()
+
+class TargetViewSet(ModelViewSet):
+    serializer_class = TargetSerializer
+    queryset = Target.objects.all()
+from rest_framework.decorators import action
+
+
+class UserAdvertisementViewSet(ModelViewSet):
+    serializer_class = UserAdvertisementSerializer
+    queryset = UserAdvertisement.objects.all()
+    lookup_field = 'user'
+
+    def get_queryset(self):
+
+        return UserAdvertisement.objects.all()
+
+
+
+class TagViewSet(ModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()

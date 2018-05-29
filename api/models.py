@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import api.nlp
+from django.utils import timezone
 
 
 class User(models.Model):
@@ -10,10 +11,34 @@ class User(models.Model):
     current_ip = models.CharField(blank=True, null=True, max_length=45)
     register_ip = models.CharField(blank=True, null=True, max_length=45)
     setting = models.ForeignKey('Setting', models.DO_NOTHING, blank=True, null=True)
+    adv_to_show = models.ForeignKey('UserAdvertisement', models.DO_NOTHING, null=True, to_field='id',related_name='+')
     password = models.CharField(max_length=45)
 
     def __str__(self):
         return self.username
+
+
+
+
+class UserAdvertisement(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING, to_field='id',blank=False, null=False)
+    advertisement_id = models.ForeignKey('Advertisement', models.DO_NOTHING, null=False, blank=False)
+    is_displayed = models.BooleanField(null=False, default=False)
+    publish_date = models.DateField(null=False, default=timezone.now)
+
+    def __str__(self):
+        return "User: {} Adv:{}".format(self.user.username, self.advertisement_id)
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+# @receiver(post_save, sender=UserAdvertisement, dispatch_uid="update_ads_to_show")
+# def update_ad_to_show(sender, instance, **kwargs):
+#      print(instance.id)
+#      instance.User.adv_to_show = instance.id
+#      instance.User.save()
+
+
 
 
 class Setting(models.Model):
@@ -97,7 +122,7 @@ class AdvertisementTag(models.Model):
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=20, null=False)
+    tag = models.CharField(max_length=50, null=False)
     category = models.ForeignKey('Category', models.DO_NOTHING, null=False)
 
     def save(self, *args, **kwargs):
@@ -115,19 +140,20 @@ class Target(models.Model):
     country = models.ForeignKey('Country', models.DO_NOTHING)
     city = models.ForeignKey('City', models.DO_NOTHING)
 
-    def __str__(self):
-        return self.targeted_age
 
 
 class Advertisement(models.Model):
     name = models.CharField(max_length=60, null=False)
     description = models.CharField(max_length=255, null=False)
     pub_date = models.DateField(null=False)
-    target = models.ForeignKey('Target', models.DO_NOTHING, null=True)
+    target = models.ForeignKey('Target', models.DO_NOTHING, to_field='id', null=True)
     acceptance_id = models.IntegerField(null=True)
     rejection_id = models.IntegerField(null=True)
     advertiser = models.ForeignKey('Advertiser', models.DO_NOTHING, null=True)
     media = models.FileField(null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class AcceptedAdvertisement(models.Model):
@@ -162,3 +188,12 @@ class ThemeRating(models.Model):
 class Device(models.Model):
     mac_address = models.CharField(max_length=255)
     user = models.ForeignKey('User', models.DO_NOTHING)
+
+@receiver(post_save, sender=UserAdvertisement, dispatch_uid="ad_to_show")
+def update_ad_to_show(sender, instance, **kwargs):
+     id = instance.id
+     print(id)
+     userobj = User.objects.get(id=instance.user_id)
+     userobj.adv_to_show = instance
+     userobj.save()
+     print(userobj.adv_to_show)
